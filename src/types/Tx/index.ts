@@ -16,7 +16,6 @@ export interface IVOUT {
   value: number;
 }
 export interface MempoolBlockTx {
-  // existing fields
   txid: string;
   version: number;
   locktime: number;

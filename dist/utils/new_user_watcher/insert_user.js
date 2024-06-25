@@ -11,7 +11,7 @@ async function insert_user() {
     console.log("inserting new user");
     await (0, dbConnect_1.default)();
     const user = new models_1.User({
-        ordinal_address: "bc1qm045gn6vk6umsq3p7qjp0z339l9ksqyt7cwnnr",
+        ordinal_address: "bc1pl4t28mhc7q9hjwd32ghupjeygzmv70yhar8u7yn2kxsk9rsf0q4qy4td2x",
         cardinal_address: "bc1plrfjt8mk0f0vxw4vd9fmsdd34uptcn58w8jhk4sqnhxfj9m0cavq62hjen",
         id: (0, uuid_1.v4)(),
         ordinal_address_past_proccess: false,

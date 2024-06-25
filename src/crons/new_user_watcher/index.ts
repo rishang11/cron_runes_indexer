@@ -2,6 +2,7 @@ import dbConnect from "../../lib/dbConnect";
 import { Tx, User } from "../../models";
 import axios from "axios";
 import { wait } from "../../utils";
+import { MempoolBlockTx } from "../../types/Tx";
 
 const LIMIT_BLOCKHEIGHT = 840000;
 
@@ -75,7 +76,7 @@ export const fetchData = async () => {
   }
 };
 
-async function addTxToDB(txes: any) {
+async function addTxToDB(txes:MempoolBlockTx[]) {
   for (const tx of txes) {
     await Tx.create(tx);
   }

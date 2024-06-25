@@ -1,5 +1,6 @@
 require("dotenv").config();
 import express from "express";
+//import { magicedenData } from "./crons/magiceden_tx";
 import { parseData } from "./crons/parse_tx";
 //import { insert_user } from "./utils/new_user_watcher/insert_user";
 //import { fetchData } from "./crons/new_user_watcher";
@@ -7,7 +8,8 @@ import { parseData } from "./crons/parse_tx";
 
  //insert_user();
   //fetchData();
-  parseData();
+ parseData();
+  //magicedenData();
 
 //new_user_watcher();
 
