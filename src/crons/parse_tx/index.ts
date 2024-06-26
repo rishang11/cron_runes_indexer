@@ -134,8 +134,9 @@ async function fetchMagicEdenDetails(txid: string, user_Tx: any): Promise<any> {
         // https://mempool.space/api/tx/4f793bd498d6825c62b0be24c4fd7c5a769518e90bea86cd0eba49cbedb7b5ba
 
         let spent = true;
+        var prevTxid = user_Tx.vin[1].txid;
         while (spent) {
-          let prevTxid = user_Tx.vin[1].txid;
+        
           // const prevTxid = "ac6a49996c4888fd7b6f2074e60b02f472468e9ff75d6c4aba644b540099097c";
           console.log(prevTxid, "prevTxid");
 
@@ -147,7 +148,8 @@ async function fetchMagicEdenDetails(txid: string, user_Tx: any): Promise<any> {
             const result = output.data;
             console.log(result, "result");
 
-            if (result.spent === true) {
+            if (result.spent == true) {
+                console.log("call mempool api");
               const response = await axios.get(
                 `https://mempool.space/api/tx/${prevTxid}`,
                 { headers: { Accept: "application/json" } }
@@ -155,9 +157,11 @@ async function fetchMagicEdenDetails(txid: string, user_Tx: any): Promise<any> {
               const data = response.data;
               console.log(data, "data");
               prevTxid = data.vin[1].txid
+              console.log(prevTxid, "prev");
             } else {
               console.log("when spent is false");
               console.log(result);
+              spent = false;
               return null;
             }
           } catch (error) {
@@ -165,7 +169,7 @@ async function fetchMagicEdenDetails(txid: string, user_Tx: any): Promise<any> {
             return null;
           }
 
-          spent = false;
+          
         }
         return null; // If spent is true, return null
       }

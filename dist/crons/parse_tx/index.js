@@ -120,22 +120,25 @@ async function fetchMagicEdenDetails(txid, user_Tx) {
             else {
                 console.log("when spend is true");
                 let spent = true;
+                var prevTxid = user_Tx.vin[1].txid;
                 while (spent) {
-                    let prevTxid = user_Tx.vin[1].txid;
                     console.log(prevTxid, "prevTxid");
                     try {
                         const output = await axios_1.default.get(`https://ord.ordinalnovus.com/output/${prevTxid}:1`, { headers: { Accept: "application/json" } });
                         const result = output.data;
                         console.log(result, "result");
-                        if (result.spent === true) {
+                        if (result.spent == true) {
+                            console.log("call mempool api");
                             const response = await axios_1.default.get(`https://mempool.space/api/tx/${prevTxid}`, { headers: { Accept: "application/json" } });
                             const data = response.data;
                             console.log(data, "data");
                             prevTxid = data.vin[1].txid;
+                            console.log(prevTxid, "prev");
                         }
                         else {
                             console.log("when spent is false");
                             console.log(result);
+                            spent = false;
                             return null;
                         }
                     }
@@ -143,7 +146,6 @@ async function fetchMagicEdenDetails(txid, user_Tx) {
                         console.error("Error fetching Magic Eden details:", error);
                         return null;
                     }
-                    spent = false;
                 }
                 return null;
             }
